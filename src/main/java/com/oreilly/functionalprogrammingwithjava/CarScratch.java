@@ -8,26 +8,7 @@ interface CarCriterion {
     boolean test(Car car);
 }
 
-class RedCarCriterion implements CarCriterion {
-    @Override
-    public boolean test(Car car) {
-        return car.getColor().equals("Red");
-    }
-}
 
-class GasLevelCarCriterion implements CarCriterion {
-
-    private int level;
-
-    public GasLevelCarCriterion(int level) {
-        this.level = level;
-    }
-
-    @Override
-    public boolean test(Car car) {
-        return car.getGasLevel() >= level;
-    }
-}
 
 public class CarScratch {
 
@@ -58,7 +39,7 @@ public class CarScratch {
         );
         showAll(cars);
 
-        showAll(getCarByCriterion(cars, new RedCarCriterion()));
-        showAll(getCarByCriterion(cars, new GasLevelCarCriterion(6)));
+        showAll(getCarByCriterion(cars, new Car.RedCarCriterion()));
+        showAll(getCarByCriterion(cars, new Car.GasLevelCarCriterion(6)));
     }
 }

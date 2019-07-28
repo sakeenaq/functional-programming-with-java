@@ -60,4 +60,26 @@ public class Car {
     private static final Comparator<Car> fuelComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
 
 
+    static class RedCarCriterion implements CarCriterion {
+        @Override
+        public boolean test(Car car) {
+            return car.getColor().equals("Red");
+        }
+    }
+
+    static class GasLevelCarCriterion implements CarCriterion {
+
+        private int level;
+
+        public GasLevelCarCriterion(int level) {
+            this.level = level;
+        }
+
+        @Override
+        public boolean test(Car car) {
+            return car.getGasLevel() >= level;
+        }
+    }
+
+
 }
