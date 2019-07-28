@@ -32,6 +32,7 @@ public class Car {
     public Optional<List<String>> getTrunkContentsOpt() {
         return Optional.ofNullable(trunkContents);
     }
+/*
 
     public static Predicate<Car> getColorCriterion(String ... colors) {
         Set<String> colorSet = new TreeSet<>(Arrays.asList(colors));
@@ -58,14 +59,19 @@ public class Car {
     }
 
     private static final Comparator<Car> fuelComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
+*/
 
+    public static CarCriterion getRedCarCriterion() {
+        return RED_CAR_CRITERION;
+    }
 
-    static class RedCarCriterion implements CarCriterion {
+    private static final CarCriterion RED_CAR_CRITERION = new CarCriterion() {
         @Override
         public boolean test(Car car) {
             return car.getColor().equals("Red");
         }
-    }
+    };
+
 
     static class GasLevelCarCriterion implements CarCriterion {
 
