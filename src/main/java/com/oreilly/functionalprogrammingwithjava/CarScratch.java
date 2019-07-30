@@ -8,6 +8,9 @@ interface CarCriterion {
     boolean test(Car car);
 }
 
+interface Criterion<E> {
+    boolean test(E e);
+}
 
 
 public class CarScratch {
@@ -17,6 +20,16 @@ public class CarScratch {
         for (Car car: in) {
             if(crit.test(car)) {
                 output.add(car);
+            }
+        }
+        return output;
+    }
+
+    static <E> List<E> getCarByCriterion(Iterable<E> in, Criterion crit) {
+        List<E> output = new ArrayList<>();
+        for (E e: in) {
+            if(crit.test(e)) {
+                output.add(e);
             }
         }
         return output;
@@ -41,5 +54,7 @@ public class CarScratch {
 
         showAll(getCarByCriterion(cars, Car.getRedCarCriterion()));
         showAll(getCarByCriterion(cars, new Car.GasLevelCarCriterion(6)));
+
+        showAll(getCarByCriterion(cars, Car.getColorCriterion("Red", "Black")));
     }
 }

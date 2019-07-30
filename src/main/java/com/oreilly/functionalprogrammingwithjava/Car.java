@@ -57,9 +57,9 @@ public class Car {
     public static Comparator<Car> getFuelComparator() {
         return fuelComparator;
     }
-
-    private static final Comparator<Car> fuelComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
 */
+    private static final Comparator<Car> fuelComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
+
 
     public static CarCriterion getRedCarCriterion() {
         return RED_CAR_CRITERION;
@@ -82,5 +82,8 @@ public class Car {
         }
     }
 
+    public static Criterion<Car> getColorCriterion(String ...colors) {
+        return car -> Arrays.asList(colors).contains(car.getColor());
+    }
 
 }
