@@ -15,6 +15,10 @@ interface Criterion<E> {
 
 public class CarScratch {
 
+    static <E> Criterion<E> negate(Criterion<E> crit) {
+        return x -> !crit.test(x);
+    }
+
     static List<Car> getCarByCriterion(Iterable<Car> in, CarCriterion crit) {
         List<Car> output = new ArrayList<>();
         for (Car car: in) {
@@ -52,9 +56,14 @@ public class CarScratch {
         );
         showAll(cars);
 
-        showAll(getCarByCriterion(cars, Car.getRedCarCriterion()));
+       /* showAll(getCarByCriterion(cars, Car.getRedCarCriterion()));
         showAll(getCarByCriterion(cars, new Car.GasLevelCarCriterion(6)));
 
-        showAll(getCarByCriterion(cars, Car.getColorCriterion("Red", "Black")));
+        showAll(getCarByCriterion(cars, Car.getColorCriterion("Red", "Black")));*/
+
+        Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
+        Criterion<Car> notRedNorBlackColors = negate(colorCriterion);
+
+        showAll(getCarByCriterion(cars, notRedNorBlackColors));
     }
 }
