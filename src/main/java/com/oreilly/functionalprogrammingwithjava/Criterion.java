@@ -16,15 +16,15 @@ public interface Criterion<E> {
         return output;
     }
 
-    static <E> Criterion<E> negate(Criterion<E> crit) {
-        return x -> !crit.test(x);
+    default Criterion<E> negate() {
+        return x -> !this.test(x);
     }
 
-    static <E> Criterion<E> and(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
-        return x -> firstCriterion.test(x) && secondCriterion.test(x);
+    default Criterion<E> and(Criterion<E> secondCriterion) {
+        return x -> this.test(x) && secondCriterion.test(x);
     }
 
-    static <E> Criterion<E> or(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
-        return x -> firstCriterion.test(x)||secondCriterion.test(x);
+    default Criterion<E> or(Criterion<E> secondCriterion) {
+        return x -> this.test(x)||secondCriterion.test(x);
     }
 }

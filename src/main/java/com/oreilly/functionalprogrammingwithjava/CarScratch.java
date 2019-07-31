@@ -59,11 +59,11 @@ public class CarScratch {
         showAll(getCarByCriterion(cars, Car.getColorCriterion("Red", "Black")));
         */
 
-        //Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
-        //Criterion<Car> notRedNorBlackColors = Criterion.negate(colorCriterion);
+        Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
 
-        //showAll(Criterion.getByCriterion(cars, notRedNorBlackColors));
-        showAll(Criterion.getByCriterion(cars, Criterion.and(Car.getColorCriterion("Red", "Black"), Car.getGasLevelCriterion(5))));
-        showAll(Criterion.getByCriterion(cars, Criterion.or(Car.getColorCriterion("Octarine"), Car.getGasLevelCriterion(7))));
+
+        showAll(Criterion.getByCriterion(cars, colorCriterion.negate()));
+        showAll(Criterion.getByCriterion(cars, Car.getColorCriterion("Red", "Black").and(Car.getGasLevelCriterion(5))));
+        showAll(Criterion.getByCriterion(cars, Car.getColorCriterion("Octarine").or(Car.getGasLevelCriterion(7))));
     }
 }
