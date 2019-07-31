@@ -78,12 +78,12 @@ public class Car {
 
         @Override
         public boolean test(Car car) {
-            return car.getGasLevel() >= level;
+            return car.gasLevel >= level;
         }
     }
 
     public static Criterion<Car> getColorCriterion(String ...colors) {
-        return car -> Arrays.asList(colors).contains(car.getColor());
+        return car -> Arrays.asList(colors).contains(car.color);
     }
 
     public static Criterion<Car> getGasLevelCriterion(int threshold) {

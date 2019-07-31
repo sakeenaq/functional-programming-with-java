@@ -13,18 +13,7 @@ interface CarCriterion {
 
 public class CarScratch {
 
-    static <E> Criterion<E> negate(Criterion<E> crit) {
-        return x -> !crit.test(x);
-    }
-
-    static <E> Criterion<E> and(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
-        return x -> firstCriterion.test(x) && secondCriterion.test(x);
-    }
-
-    static <E> Criterion<E> or(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
-        return x -> firstCriterion.test(x)||secondCriterion.test(x);
-    }
-
+    
     static List<Car> getCarByCriterion(Iterable<Car> in, CarCriterion crit) {
         List<Car> output = new ArrayList<>();
         for (Car car: in) {
@@ -70,12 +59,11 @@ public class CarScratch {
         showAll(getCarByCriterion(cars, Car.getColorCriterion("Red", "Black")));
         */
 
-        Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
-        Criterion<Car> notRedNorBlackColors = negate(colorCriterion);
-       
+        //Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
+        //Criterion<Car> notRedNorBlackColors = Criterion.negate(colorCriterion);
 
-        showAll(Criterion.getByCriterion(cars, notRedNorBlackColors));
-        showAll(Criterion.getByCriterion(cars, and(colorCriterion, Car.getGasLevelCriterion(5))));
-        showAll(Criterion.getByCriterion(cars, or(Car.getColorCriterion("Green"), Car.getGasLevelCriterion(7))));
+        //showAll(Criterion.getByCriterion(cars, notRedNorBlackColors));
+        showAll(Criterion.getByCriterion(cars, Criterion.and(Car.getColorCriterion("Red", "Black"), Car.getGasLevelCriterion(5))));
+        showAll(Criterion.getByCriterion(cars, Criterion.or(Car.getColorCriterion("Octarine"), Car.getGasLevelCriterion(7))));
     }
 }
