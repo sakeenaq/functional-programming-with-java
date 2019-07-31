@@ -1,10 +1,10 @@
 package com.oreilly.functionalprogrammingwithjava;
 
+import java.util.*;
+import java.util.function.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.*;
-import java.util.function.Predicate;
 
 @Data @AllArgsConstructor
 public class Car {
@@ -84,6 +84,10 @@ public class Car {
 
     public static Criterion<Car> getColorCriterion(String ...colors) {
         return car -> Arrays.asList(colors).contains(car.getColor());
+    }
+
+    public static Criterion<Car> getGasLevelCriterion(int threshold) {
+        return car -> car.gasLevel >= threshold;
     }
 
 }
