@@ -8,15 +8,21 @@ interface CarCriterion {
     boolean test(Car car);
 }
 
-interface Criterion<E> {
-    boolean test(E e);
-}
+
 
 
 public class CarScratch {
 
     static <E> Criterion<E> negate(Criterion<E> crit) {
         return x -> !crit.test(x);
+    }
+
+    static <E> Criterion<E> and(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
+        return x -> firstCriterion.test(x) && secondCriterion.test(x);
+    }
+
+    static <E> Criterion<E> or(Criterion<E> firstCriterion, Criterion<E> secondCriterion) {
+        return x -> firstCriterion.test(x)||secondCriterion.test(x);
     }
 
     static List<Car> getCarByCriterion(Iterable<Car> in, CarCriterion crit) {
@@ -29,7 +35,8 @@ public class CarScratch {
         return output;
     }
 
-    static <E> List<E> getCarByCriterion(Iterable<E> in, Criterion crit) {
+    /*
+    static <E> List<E> getByCriterion(Iterable<E> in, Criterion crit) {
         List<E> output = new ArrayList<>();
         for (E e: in) {
             if(crit.test(e)) {
@@ -38,6 +45,7 @@ public class CarScratch {
         }
         return output;
     }
+    */
 
     public static void showAll(List<Car> lc) {
         for (Car c : lc) {
@@ -64,6 +72,6 @@ public class CarScratch {
         Criterion<Car> colorCriterion = Car.getColorCriterion("Red", "Black");
         Criterion<Car> notRedNorBlackColors = negate(colorCriterion);
 
-        showAll(getCarByCriterion(cars, notRedNorBlackColors));
+        showAll(Criterion.getByCriterion(cars, notRedNorBlackColors));
     }
 }
