@@ -53,11 +53,11 @@ public class Car {
     public static Predicate<Car> getFourPassengerCriterion() {
         return c -> c.passengers.size() >= 4;
     }
-
+*/
     public static Comparator<Car> getFuelComparator() {
         return fuelComparator;
     }
-*/
+
     private static final Comparator<Car> fuelComparator = (o1, o2) -> o1.gasLevel - o2.gasLevel;
 
 

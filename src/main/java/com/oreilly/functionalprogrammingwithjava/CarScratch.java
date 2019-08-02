@@ -2,7 +2,9 @@ package com.oreilly.functionalprogrammingwithjava;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 interface CarCriterion {
     boolean test(Car car);
@@ -13,6 +15,9 @@ interface CarCriterion {
 
 public class CarScratch {
 
+    public static <E> ToIntFunction<E> compareWithThis(E target, Comparator<E> comp) {
+        return x -> comp.compare(target, x);
+    }
     
     static List<Car> getCarByCriterion(Iterable<Car> in, CarCriterion crit) {
         List<Car> output = new ArrayList<>();
@@ -65,5 +70,13 @@ public class CarScratch {
         showAll(Criterion.getByCriterion(cars, colorCriterion.negate()));
         showAll(Criterion.getByCriterion(cars, Car.getColorCriterion("Red", "Black").and(Car.getGasLevelCriterion(5))));
         showAll(Criterion.getByCriterion(cars, Car.getColorCriterion("Octarine").or(Car.getGasLevelCriterion(7))));
+
+        Car bert = Car.withGasColorPassengers(5, "Blue");
+
+        ToIntFunction<Car> compareWithBert = compareWithThis(bert, Car.getFuelComparator());
+        for(Car c : cars) {
+            System.out.println("Comparing " + c + " with bert gives " + compareWithBert.applyAsInt(c));
+        }
+         
     }
 }
