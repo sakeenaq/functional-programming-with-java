@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
 interface CarCriterion {
@@ -17,6 +18,10 @@ public class CarScratch {
 
     public static <E> ToIntFunction<E> compareWithThis(E target, Comparator<E> comp) {
         return x -> comp.compare(target, x);
+    }
+
+    public static <E> Predicate<E> isGreaterThan(ToIntFunction<E> comp) {
+        return x -> comp.applyAsInt(x) < 0;
     }
     
     static List<Car> getCarByCriterion(Iterable<Car> in, CarCriterion crit) {
@@ -74,8 +79,14 @@ public class CarScratch {
         Car bert = Car.withGasColorPassengers(5, "Blue");
 
         ToIntFunction<Car> compareWithBert = compareWithThis(bert, Car.getFuelComparator());
+        Predicate isGreaterThanBert = isGreaterThan(compareWithBert);
+
         for(Car c : cars) {
             System.out.println("Comparing " + c + " with bert gives " + compareWithBert.applyAsInt(c));
+        }
+
+        for(Car c : cars) {
+            System.out.println("Comparing " + c + " greater than bert gives: " + isGreaterThanBert.test(c));
         }
          
     }
