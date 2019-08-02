@@ -79,15 +79,16 @@ public class CarScratch {
         Car bert = Car.withGasColorPassengers(5, "Blue");
 
         ToIntFunction<Car> compareWithBert = compareWithThis(bert, Car.getFuelComparator());
-        Predicate isGreaterThanBert = isGreaterThan(compareWithBert);
+        //Predicate isGreaterThanBert = isGreaterThan(compareWithBert);
 
         for(Car c : cars) {
             System.out.println("Comparing " + c + " with bert gives " + compareWithBert.applyAsInt(c));
         }
-
+        /*
         for(Car c : cars) {
             System.out.println("Comparing " + c + " greater than bert gives: " + isGreaterThanBert.test(c));
         }
-         
+        */
+         showAll(Criterion.getByPredicate(cars, isGreaterThan(compareWithBert)));
     }
 }
