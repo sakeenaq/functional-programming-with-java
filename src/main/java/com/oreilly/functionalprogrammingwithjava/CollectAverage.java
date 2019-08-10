@@ -27,12 +27,15 @@ class Averager {
 
 public class CollectAverage {
     public static void main(String[] args) {
+        long start = System.nanoTime();
         Averager result = DoubleStream.generate(() -> ThreadLocalRandom.current().nextDouble(-Math.PI, Math.PI))
-                .limit(1_000)
+                .parallel()
+                .limit(4_000_000_000L)
                 .collect(() -> new Averager(),
                         (b, i) -> b.include(i),
                         (b1, b2) -> b1.merge(b2));
 
-        System.out.println("Average is " + result.get());
+        long end = System.nanoTime();
+        System.out.println("Average is " + result.get() + " - computation took " + (end - start)/1_000_000 + " ms");
     }
 }
