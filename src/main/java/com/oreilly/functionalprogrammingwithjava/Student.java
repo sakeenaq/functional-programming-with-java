@@ -2,6 +2,7 @@ package com.oreilly.functionalprogrammingwithjava;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Student {
     private static final NavigableMap<Integer, String> gradeLetters = new TreeMap<>();
@@ -88,5 +89,31 @@ public class Student {
         table.entrySet().stream()
                 .sorted(comparator.reversed())
                 .forEach(e -> System.out.println("Students " + e.getValue() + " has grade " + e.getKey()));
+
+        Map<String, Long> table2 = school.stream()
+                .collect(Collectors.groupingBy(
+                        student -> student.getLetterGrade(),
+                        Collectors.counting()
+                ));
+
+        System.out.println("--------------------------------");
+
+        table2.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(e -> System.out.println(e.getValue() + " Students " + " have grade " + e.getKey()));
+
+        Map<String, String> table3 = school.stream()
+                .collect(Collectors.groupingBy(
+                        student -> student.getLetterGrade(),
+                        Collectors.collectingAndThen(Collectors.toList(), students -> students.stream()
+                                .map(student -> student.getName())
+                                .collect(Collectors.joining(",")))
+                ));
+
+        System.out.println("--------------------------------");
+
+        table3.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(e -> System.out.println(e.getValue() + " Students " + " have grade " + e.getKey()));
     }
 }
