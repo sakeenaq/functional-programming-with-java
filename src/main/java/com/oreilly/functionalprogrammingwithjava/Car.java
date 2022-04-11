@@ -64,9 +64,9 @@ public class Car {
     public static CarCriterion getRedCarCriterion() {
         return RED_CAR_CRITERION;
     }
+    // Singleton Factory as we return same CarCriterion object that checks Red color
 
     private static final CarCriterion RED_CAR_CRITERION = (car) -> car.getColor().equals("Red");
-
 
     static class GasLevelCarCriterion implements CarCriterion {
 
